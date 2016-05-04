@@ -2,6 +2,8 @@
 
 Welcome to Code 301! This is a class that builds on your fundamental knowledge of HTML, CSS, JavaScript, git, and general web development, to prepare you for the deep dive of any Code 401 class.
 
+This class is awesome!
+
 # Introduction
 
 We are going to learn about many different topics of web development. The overall structure of the course is based on Model-View-Controller (MVC), which is a common design pattern for web applications.
@@ -44,9 +46,9 @@ If you haven't already, install [Atom](https://atom.io). If you have used an adv
 #### Linux instructions
 
   To install Node, open your Terminal, and copy and paste the following line, then hit Enter:
-  
+
   `apt-get install nodejs`
-  
+
   If this did not work, try the following:
 
   `curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -`
@@ -54,10 +56,10 @@ If you haven't already, install [Atom](https://atom.io). If you have used an adv
   It will churn away for a while, and then once it's done you can run the following command:
 
   `sudo apt-get install nodejs`
-  
+
   If, once again, you did not achieve success, try [these instructions to build from source](https://gist.github.com/toastynerd/d3e563522977f6750c32).
-  
-  
+
+
 
 #### Mac instructions
 
