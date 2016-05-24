@@ -97,7 +97,7 @@
   // DONE: Refactor this to check if the database holds any records or not. If the DB is empty,
   // we need to retrieve the JSON and process it.
   // If the DB has data already, we'll load up the data (sorted!), and then hand off control to the View.
-  Article.fetchAll = function(next) {
+  Article.fetchAll = function(callback) {
     // DONE: fill these quotes to 'select' our table.
     webDB.execute('SELECT * FROM articles ORDER BY publishedOn DESC', function(rows) {
       if (rows.length) {
@@ -105,7 +105,7 @@
         // and 2nd - pass control to the view by calling whichever function argument was passed in to fetchAll.
         console.table(rows);
         Article.loadAll(rows);
-        next();
+        callback();
       } else {
         $.getJSON('/data/hackerIpsum.json', function(rawData) {
           // Cache the json, so we don't need to request it next time:
@@ -120,7 +120,7 @@
             // DONE: Now, 1st - instanitate those rows with the .loadAll function,
             // and 2nd - pass control to the view by calling whichever function argument was passed in to fetchAll.
             Article.loadAll(rows);
-            next();
+            callback();
           });
         });
       }
