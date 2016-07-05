@@ -2,22 +2,44 @@
 
   var projectView = {};
 
-  // create tab views of content in #projects and #about
-  projectView.handleMainNav = function() {
-    $('.mainNav').on('click', 'li', function() {
-      $('.jumbotron').fadeTo(5000, 1);
-      $('.page-content').hide();
-      $('#hbAnagram').remove();
-      anagram.create();
-      $('main').find('[id="'+$(this).attr('data-section')+'"]').fadeIn(5000);
-      projectView.scroll(this);
-    });
+  //hanldebars template
+  projectView.getTemplate = function(data, callback){
+    getTemplate('portfolio', data, callback);
   };
+
+  // create tab views of content in #projects and #about
+  projectView.portfolio = function() {
+    $('.jumbotron').fadeTo(5000, 1);
+    $('.page-content').hide();
+    $('#projects').fadeIn(5000);
+    projectView.scroll('#projects');
+    projectView.createTeaser();
+  };
+
+  projectView.about = function() {
+    $('.jumbotron').fadeTo(5000, 1);
+    $('.page-content').hide();
+    $('#hbAnagram').remove();
+    anagram.create();
+    $('#about').fadeIn(5000);
+    projectView.scroll('#about');
+  };
+
+  projectView.about = function() {
+    $('.jumbotron').fadeTo(5000, 1);
+    $('.page-content').hide();
+    $('#hbAnagram').remove();
+    anagram.create();
+    $('#about').fadeIn(5000);
+    projectView.scroll('#about');
+  };
+
 
   // more and shrink function
   projectView.createTeaser = function() {
     $('.projDescription *:nth-child(n)').hide();
     $('.projDescription *:nth-child(1)').show();
+    $('.read-on').show();
     $('.shrink').hide();
     $('.read-on').on('click', function(event) {
       event.preventDefault();
@@ -25,14 +47,8 @@
       $(this).hide();
       $(this).next().show();
     });
-    $('.shrink').on('click', function(e) {
-      event.preventDefault();
-      $('.projDescription *:nth-child(n)').hide();
-      $('.projDescription *:nth-child(1)').show();
-      $(this).hide();
-      $(this).prev().show();
-    });
   };
+
 
   projectView.scroll = function(tease) {
     $('html, body').animate({
@@ -40,15 +56,26 @@
     }, 2000);
   };
 
-  //call the functions
-  projectView.initIndexPage = function(){
-    Project.all.forEach(function(a){
-      $('#projects').append(a.toHtml());
+  projectView.renderPortfolio = function(){
+    Project.all.forEach(function(project){
+      projectView.getTemplate(project, function(a){
+        $('#projects').append(a);
+      });
     });
+    projectView.setPage();
+  };
+
+  projectView.setPage = function(){
+    projectView.createTeaser();
     $('.page-content').hide();
     $('.jumbotron').fadeTo(5000, 0.5);
-    projectView.handleMainNav();
-    projectView.createTeaser();
   };
+
+  //call the functions
+  projectView.initIndexPage = function(){
+    projectView.renderPortfolio();
+  };
+
   module.projectView = projectView;
+
 })(window);
